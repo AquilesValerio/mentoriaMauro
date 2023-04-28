@@ -12,6 +12,10 @@ public class Professor {
 		return id;
 	}
 
+	public int setId(int newId){
+		return this.id = newId;
+	}
+
 	public String getName(){
 		return name;
 	}
