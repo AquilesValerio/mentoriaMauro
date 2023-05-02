@@ -1,6 +1,8 @@
 package br.com.projeto.mentoria.controller;
 
 import br.com.projeto.mentoria.domain.Teacher;
+import br.com.projeto.mentoria.services.TeacherService;
+import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,27 +18,27 @@ public class TeacherController {
 
 
 	@GetMapping
-	public Teacher getAll(){
-		return null;
+	public List<Teacher> getAll(){
+		return new TeacherService().getAll();
 	}
 
 	@GetMapping("{id}")
 	public Teacher getById(@PathVariable(name = "id") int id){
-		return null;
+		return new TeacherService().getById(id);
 	}
 
 	@PostMapping()
 	public Teacher insert(@RequestBody Teacher teacher){
-		return null;
+		return new TeacherService().insert(teacher);
 	}
 
 	@PutMapping("{id}")
-	public Teacher update(@RequestBody Teacher teacher, @PathVariable(name = "id") int id){
-		return null;
+	public void update(@RequestBody Teacher teacher, @PathVariable(name = "id") int id){
+		 new TeacherService().update(teacher, id);
 	}
 
 	@DeleteMapping("{id}")
-	public Teacher delete(@PathVariable(name = "id") int id){
-		return null;
+	public void delete(@PathVariable(name = "id") int id){
+		  new TeacherService().delete(id);
 	}
 }
