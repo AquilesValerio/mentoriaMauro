@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 public class TeacherService {
 
 
-	public Teacher findAll(){
+	public Teacher getAll(){
 		return null;
 	}
 
-	public Teacher findById(int id){
+	public Teacher getById(int id){
 		return null;
 	}
 
