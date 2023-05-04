@@ -2,7 +2,9 @@ package br.com.projeto.mentoria.repositories;
 
 import br.com.projeto.mentoria.domain.Teacher;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class TeacherRepository {
 
 
