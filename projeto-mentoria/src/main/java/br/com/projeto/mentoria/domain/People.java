@@ -1,13 +1,17 @@
 package br.com.projeto.mentoria.domain;
 
+import br.com.projeto.mentoria.util.CpfValidator;
+import br.com.projeto.mentoria.util.EmailValidator;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import java.util.ArrayList;
+import java.util.List;
 
 @MappedSuperclass
-public class People {
+public abstract class People {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +29,6 @@ public class People {
 
 	@Column(name = "CPF", nullable = false, unique = true, length = 11)
 	private String cpf;
-
 
 	public int getId() {
 		return id;
@@ -67,5 +70,17 @@ public class People {
 		this.cpf = cpf;
 	}
 
+	protected List<String> erros = new ArrayList<>();
 
+	protected void validate() {
+		if (name == null || name.trim().isEmpty() || name.length() > 50) {
+			erros.add("This field is mandatory and must be 50 characters long.");
+		}
+		if(!CpfValidator.isValidCPF(cpf)){
+			// add lista de erros
+		}
+		if(!EmailValidator.isValidEmail(email)){
+			// add lista de erros
+		}
+	}
 }

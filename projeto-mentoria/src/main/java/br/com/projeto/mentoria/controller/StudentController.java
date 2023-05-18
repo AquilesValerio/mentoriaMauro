@@ -3,6 +3,7 @@ package br.com.projeto.mentoria.controller;
 import br.com.projeto.mentoria.domain.Student;
 import br.com.projeto.mentoria.services.StudentService;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,16 +24,16 @@ public class StudentController {
 	}
 
 	@GetMapping
-	public List<Student> getAll() {
+	public ResponseEntity<List<Student>> findAll() {
 		List<Student> studentList;
-		studentList = studentService.getAll();
-		return studentList;
+		studentList = studentService.findAll();
+		return ResponseEntity.ok(studentList);
 	}
 
 	@GetMapping("{id}")
-	public Student getById(@PathVariable(name = "id") int id) {
-		System.out.println("passando por aqui*******************");
-		return studentService.getById(id);
+	public ResponseEntity<Student> findById(@PathVariable(name = "id") int id) {
+		var student = studentService.findById(id);
+		return null;
 	}
 
 	@PostMapping()

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
+	//To do: Fazer com que o nas linhas 17 e 23 receba a lista de erros que criamos na classe Person
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<ExceptionMessage> apiExceptionHandle(ApiException e){
 		ExceptionMessage err = new ExceptionMessage(List.of(e.getMessage()));
