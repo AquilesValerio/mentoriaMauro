@@ -1,6 +1,5 @@
 package br.com.projeto.mentoria.services;
 
-import br.com.projeto.mentoria.domain.People;
 import br.com.projeto.mentoria.domain.Student;
 import br.com.projeto.mentoria.exceptions.ApiException;
 import br.com.projeto.mentoria.repositories.StudentRepository;
@@ -27,11 +26,11 @@ public class StudentService {
 	}
 
 	public Student insert(Student object) {
-
+		object.validate();
 		var student = studentRepository.findByCpf(object.getCpf());
 		if (student == null) {
-			return studentRepository.save(student);
-		} else if (object.getStatus()) {
+			return studentRepository.save(object);
+		} else if (student.getStatus()) {
 			throw new ApiException("This student is already exists and your status is active.",
 				HttpStatus.CONFLICT);
 		} else {

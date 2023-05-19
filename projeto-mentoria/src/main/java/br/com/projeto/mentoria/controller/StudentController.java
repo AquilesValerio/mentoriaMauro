@@ -1,7 +1,9 @@
 package br.com.projeto.mentoria.controller;
 
 import br.com.projeto.mentoria.domain.Student;
+import br.com.projeto.mentoria.domain.Teacher;
 import br.com.projeto.mentoria.services.StudentService;
+import java.net.URI;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,21 +35,24 @@ public class StudentController {
 	@GetMapping("{id}")
 	public ResponseEntity<Student> findById(@PathVariable(name = "id") int id) {
 		var student = studentService.findById(id);
-		return null;
+		return ResponseEntity.ok(student);
 	}
 
 	@PostMapping()
-	public Student insert(@RequestBody Student student) {
-		return studentService.insert(student);
+	public ResponseEntity<Student> insert(@RequestBody Student student) {
+		var entity = studentService.insert(student);
+		return ResponseEntity.created(URI.create("students" + entity.getId())).body(entity);
 	}
 
 	@PutMapping("{id}")
-	public void update(@RequestBody Student student, @PathVariable(name = "id") int id) {
+	public ResponseEntity<Void> update(@RequestBody Student student, @PathVariable(name = "id") int id) {
 		studentService.update(student, id);
+		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("{id}")
-	public void delete(@PathVariable(name = "id") int id) {
+	public ResponseEntity<Void> delete(@PathVariable(name = "id") int id) {
 		studentService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }

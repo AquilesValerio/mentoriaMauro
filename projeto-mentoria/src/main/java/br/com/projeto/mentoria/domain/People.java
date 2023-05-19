@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,17 +71,18 @@ public abstract class People {
 		this.cpf = cpf;
 	}
 
+	@Transient
 	protected List<String> erros = new ArrayList<>();
 
 	protected void validate() {
 		if (name == null || name.trim().isEmpty() || name.length() > 50) {
 			erros.add("This field is mandatory and must be 50 characters long.");
 		}
-		if(!CpfValidator.isValidCPF(cpf)){
-			// add lista de erros
+		if (!CpfValidator.isValidCPF(cpf)) {
+			erros.add("Must be a valid cpf");
 		}
-		if(!EmailValidator.isValidEmail(email)){
-			// add lista de erros
+		if (!EmailValidator.isValidEmail(email)) {
+			erros.add("Must be a valid email");
 		}
 	}
 }

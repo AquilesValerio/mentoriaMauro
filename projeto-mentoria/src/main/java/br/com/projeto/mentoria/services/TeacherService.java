@@ -26,6 +26,7 @@ public class TeacherService {
 	}
 
 	public Teacher insert(Teacher object) {
+
 		var teacher = teacherRepository.findByCpf(object.getCpf());
 
 		if (teacher == null) {
