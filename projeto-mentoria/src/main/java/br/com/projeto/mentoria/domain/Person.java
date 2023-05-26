@@ -1,13 +1,11 @@
 package br.com.projeto.mentoria.domain;
 
-import br.com.projeto.mentoria.util.PersonValidator;
+import br.com.projeto.mentoria.domain.validator.PersonValidator;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Transient;
-import java.util.ArrayList;
 import java.util.List;
 
 @MappedSuperclass
@@ -73,7 +71,8 @@ public abstract class Person {
 	/*@Transient
 	protected List<String> validated = new ArrayList<>();*/
 
-	public List<String> validated() {
-		if (v)PersonValidator personValidator = new PersonValidator();
-	}
+	public List<String> validated() {}
+
+	//
+
 }

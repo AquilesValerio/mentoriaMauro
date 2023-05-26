@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 @Table(name = "Teacher")
 public class Teacher extends Person {
 	public String TesteDosFera;
+
 	@Column(name = "age", nullable = false)
 	private Integer age;
 
@@ -18,5 +19,6 @@ public class Teacher extends Person {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
+	//criar um metodo validate que vai chamar o teachor validate
 
 }

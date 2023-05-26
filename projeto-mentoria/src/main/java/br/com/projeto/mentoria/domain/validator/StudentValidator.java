@@ -1,4 +1,4 @@
-package br.com.projeto.mentoria.util;
+package br.com.projeto.mentoria.domain.validator;
 
 import br.com.projeto.mentoria.domain.Student;
 import br.com.projeto.mentoria.exceptions.ApiException;
