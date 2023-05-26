@@ -1,6 +1,6 @@
 package br.com.projeto.mentoria.exceptions.handler;
 
-import br.com.projeto.mentoria.domain.People;
+import br.com.projeto.mentoria.domain.Person;
 import br.com.projeto.mentoria.exceptions.ApiException;
 import br.com.projeto.mentoria.exceptions.ExceptionMessage;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class ControllerExceptionHandler extends People {
-	//To do: Fazer com que o nas linhas 17 e 23 receba a lista de erros que criamos na classe Person
+public class ControllerExceptionHandler extends Person {
+
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<ExceptionMessage> apiExceptionHandle(ApiException e){
 
