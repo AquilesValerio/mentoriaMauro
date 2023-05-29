@@ -29,23 +29,24 @@ public class TeacherService {
 	}
 
 	public Teacher insert(Teacher object) {
+		validate(object);
+		var teacher = teacherRepository.findByCpf(object.getCpf());
 
-		List<String> erros = object.validated(object);
-
-		if (erros == null) {
-			var teacher = teacherRepository.findByCpf(object.getCpf());
-
-			if (teacher == null) {
-				return teacherRepository.save(object);
-			} else if (teacher.getStatus()) {
-				throw new ApiException("This teacher is already exists and your status is active.",
-					HttpStatus.CONFLICT);
-			} else {
-				throw new ApiException("This teacher is already exists and your status is desactive.",
-					HttpStatus.BAD_REQUEST);
-			}
+		if (teacher == null) {
+			return teacherRepository.save(object);
+		} else if (teacher.getStatus()) {
+			throw new ApiException("This teacher is already exists and your status is active.",
+				HttpStatus.CONFLICT);
 		} else {
-			throw new ApiException(erros.toString(), HttpStatus.BAD_REQUEST);
+			throw new ApiException("This teacher is already exists and your status is desactive.",
+				HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	private void validate(Teacher teacher) {
+		List<String> erros = teacher.validated();
+		if (!erros.isEmpty()) {
+			throw new ApiException(erros, HttpStatus.BAD_REQUEST);
 		}
 	}
 

@@ -68,6 +68,6 @@ public abstract class Person {
 		this.cpf = cpf;
 	}
 
-	protected abstract List<String> validated(Person person);
+	protected abstract List<String> validated();
 
 }

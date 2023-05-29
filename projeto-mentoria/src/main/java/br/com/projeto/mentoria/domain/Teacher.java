@@ -22,16 +22,7 @@ public class Teacher extends Person {
 	}
 
 	@Override
-	public List<String> validated(Person person) {
-		TeacherValidator teacherValidator = new TeacherValidator();
-		Teacher teacher = (Teacher) person;
-
-		List<String> erros = teacherValidator.validate(teacher);
-
-		if (!erros.isEmpty()) {
-			return erros;
-		} else {
-			return null;
-		}
+	public List<String> validated() {
+		return new TeacherValidator().validate(this);
 	}
 }

@@ -23,7 +23,7 @@ public class Student extends Person {
 	}
 
 	@Override
-	public List<String> validated(Person person) {
+	public List<String> validated() {
 		return null;
 	}
 }
