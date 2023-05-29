@@ -68,11 +68,6 @@ public abstract class Person {
 		this.cpf = cpf;
 	}
 
-	/*@Transient
-	protected List<String> validated = new ArrayList<>();*/
-
-	public List<String> validated() {}
-
-	//
+	protected abstract List<String> validated(Person person);
 
 }

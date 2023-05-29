@@ -1,13 +1,14 @@
 package br.com.projeto.mentoria.domain;
 
+import br.com.projeto.mentoria.domain.validator.TeacherValidator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import java.util.List;
 
 @Entity(name = "Teacher")
 @Table(name = "Teacher")
 public class Teacher extends Person {
-	public String TesteDosFera;
 
 	@Column(name = "age", nullable = false)
 	private Integer age;
@@ -19,6 +20,18 @@ public class Teacher extends Person {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
-	//criar um metodo validate que vai chamar o teachor validate
 
+	@Override
+	public List<String> validated(Person person) {
+		TeacherValidator teacherValidator = new TeacherValidator();
+		Teacher teacher = (Teacher) person;
+
+		List<String> erros = teacherValidator.validate(teacher);
+
+		if (!erros.isEmpty()) {
+			return erros;
+		} else {
+			return null;
+		}
+	}
 }

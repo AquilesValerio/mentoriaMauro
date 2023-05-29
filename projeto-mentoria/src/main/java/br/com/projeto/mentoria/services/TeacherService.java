@@ -29,18 +29,23 @@ public class TeacherService {
 	}
 
 	public Teacher insert(Teacher object) {
-		testePeople(object);
-		object.validate();
-		var teacher = teacherRepository.findByCpf(object.getCpf());
 
-		if (teacher == null) {
-			return teacherRepository.save(object);
-		} else if (teacher.getStatus()) {
-			throw new ApiException("This teacher is already exists and your status is active.",
-				HttpStatus.CONFLICT);
+		List<String> erros = object.validated(object);
+
+		if (erros == null) {
+			var teacher = teacherRepository.findByCpf(object.getCpf());
+
+			if (teacher == null) {
+				return teacherRepository.save(object);
+			} else if (teacher.getStatus()) {
+				throw new ApiException("This teacher is already exists and your status is active.",
+					HttpStatus.CONFLICT);
+			} else {
+				throw new ApiException("This teacher is already exists and your status is desactive.",
+					HttpStatus.BAD_REQUEST);
+			}
 		} else {
-			throw new ApiException("This teacher is already exists and your status is desactive.",
-				HttpStatus.BAD_REQUEST);
+			throw new ApiException(erros.toString(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -53,12 +58,8 @@ public class TeacherService {
 		teacherRepository.deleteById(id);
 	}
 
-	private void testePeople(Person people) {
 
-		System.out.println(people.toString());
-	}
-
-	private void Reflexao(Person people) {
+	/*private void Reflexao(Person people) {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 
@@ -94,5 +95,5 @@ public class TeacherService {
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
-	}
+	}*/
 }

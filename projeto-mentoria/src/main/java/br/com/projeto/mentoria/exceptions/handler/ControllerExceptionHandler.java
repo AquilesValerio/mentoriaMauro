@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class ControllerExceptionHandler extends Person {
+public class ControllerExceptionHandler  {
 
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<ExceptionMessage> apiExceptionHandle(ApiException e){

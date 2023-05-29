@@ -26,7 +26,7 @@ public class StudentService {
 	}
 
 	public Student insert(Student object) {
-		object.validate();
+		//object.validate();
 		var student = studentRepository.findByCpf(object.getCpf());
 		if (student == null) {
 			return studentRepository.save(object);
