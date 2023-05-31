@@ -1,6 +1,7 @@
 package br.com.projeto.mentoria.domain;
 
 import br.com.projeto.mentoria.domain.validator.StudentValidator;
+import br.com.projeto.mentoria.domain.validator.TeacherValidator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -24,6 +25,6 @@ public class Student extends Person {
 
 	@Override
 	public List<String> validated() {
-		return null;
+		return new StudentValidator().validate(this);
 	}
 }

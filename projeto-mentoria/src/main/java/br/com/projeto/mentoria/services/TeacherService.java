@@ -30,11 +30,20 @@ public class TeacherService {
 
 	public Teacher insert(Teacher object) {
 		validate(object);
+		return teacherRepository.save(validateStatus(object));
+	}
+	private void validate(Teacher teacher) {
+		List<String> erros = teacher.validated();
+		if (!erros.isEmpty()) {
+			throw new ApiException(erros, HttpStatus.BAD_REQUEST);
+		}
+	}
+	private Teacher validateStatus(Teacher object){
 		var teacher = teacherRepository.findByCpf(object.getCpf());
-
 		if (teacher == null) {
-			return teacherRepository.save(object);
-		} else if (teacher.getStatus()) {
+			return object;
+		}
+		if(teacher.getStatus()){
 			throw new ApiException("This teacher is already exists and your status is active.",
 				HttpStatus.CONFLICT);
 		} else {
@@ -42,14 +51,6 @@ public class TeacherService {
 				HttpStatus.BAD_REQUEST);
 		}
 	}
-
-	private void validate(Teacher teacher) {
-		List<String> erros = teacher.validated();
-		if (!erros.isEmpty()) {
-			throw new ApiException(erros, HttpStatus.BAD_REQUEST);
-		}
-	}
-
 	public void update(Teacher object, int id) {
 		object.setId(id);
 		teacherRepository.save(object);
