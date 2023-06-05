@@ -30,7 +30,8 @@ public class TeacherService {
 
 	public Teacher insert(Teacher object) {
 		validate(object);
-		return teacherRepository.save(validateStatus(object));
+		validateStatus(object);
+		return save(object);
 	}
 	private void validate(Teacher teacher) {
 		List<String> erros = teacher.validated();
@@ -50,10 +51,15 @@ public class TeacherService {
 			throw new ApiException("This teacher is already exists and your status is desactive.",
 				HttpStatus.BAD_REQUEST);
 		}
+		// criar um patch
+	}
+	private Teacher save(Teacher teacher){
+		return teacherRepository.save(teacher);
 	}
 	public void update(Teacher object, int id) {
+		validate(object);
 		object.setId(id);
-		teacherRepository.save(object);
+		save(object);
 	}
 
 	public void delete(int id) {
