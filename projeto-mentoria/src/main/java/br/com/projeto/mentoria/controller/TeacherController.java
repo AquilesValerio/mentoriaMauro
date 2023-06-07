@@ -1,5 +1,6 @@
 package br.com.projeto.mentoria.controller;
 
+import br.com.projeto.mentoria.domain.DTO.ChangeStatusTeacher;
 import br.com.projeto.mentoria.domain.Teacher;
 import br.com.projeto.mentoria.services.TeacherService;
 import java.net.URI;
@@ -7,6 +8,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,6 +47,12 @@ public class TeacherController {
 	@PutMapping("{id}")
 	public ResponseEntity<Void> update(@RequestBody Teacher teacher, @PathVariable(name = "id") int id) {
 		teacherService.update(teacher, id);
+		return ResponseEntity.noContent().build();
+	}
+
+	@PatchMapping("{id}")
+	public ResponseEntity<Void> partialUpdate(@RequestBody ChangeStatusTeacher statusTeacher, @PathVariable(name = "id") int id) {
+		teacherService.partialUpdate(statusTeacher, id);
 		return ResponseEntity.noContent().build();
 	}
 

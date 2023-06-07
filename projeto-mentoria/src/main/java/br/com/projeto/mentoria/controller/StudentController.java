@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -47,6 +48,12 @@ public class StudentController {
 	@PutMapping("{id}")
 	public ResponseEntity<Void> update(@RequestBody Student student, @PathVariable(name = "id") int id) {
 		studentService.update(student, id);
+		return ResponseEntity.noContent().build();
+	}
+
+	@PatchMapping("{id}")
+	public ResponseEntity<Student> partialUpdate(@RequestBody Student student, @PathVariable(name = "id") int id) {
+		 studentService.update(student, id);
 		return ResponseEntity.noContent().build();
 	}
 
