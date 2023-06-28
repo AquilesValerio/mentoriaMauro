@@ -1,13 +1,19 @@
 package br.com.projeto.mentoria.services;
 
 import br.com.projeto.mentoria.domain.DTO.ChangeStatusTeacher;
+import br.com.projeto.mentoria.domain.DTO.TeacherDto;
 import br.com.projeto.mentoria.domain.Person;
+import br.com.projeto.mentoria.domain.Student;
 import br.com.projeto.mentoria.domain.Teacher;
 import br.com.projeto.mentoria.repositories.TeacherRepository;
 import br.com.projeto.mentoria.exceptions.ApiException;
+import br.com.projeto.mentoria.util.ListHelper;
+import br.com.projeto.mentoria.util.TesteClassGeneric;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +25,7 @@ public class TeacherService {
 	public TeacherService(TeacherRepository teacherRepository) {
 		this.teacherRepository = teacherRepository;
 	}
+
 
 	public List<Teacher> findAll() {
 		return teacherRepository.findAll();
@@ -68,24 +75,27 @@ public class TeacherService {
 		object.setId(id);
 		save(object);
 	}
-	private void verifyTeacherExists(int id){
-		if(!teacherRepository.existsById(id)){
+
+	private void verifyTeacherExists(int id) {
+		if (!teacherRepository.existsById(id)) {
 			throw new ApiException("Register not found", HttpStatus.NOT_FOUND);
 		}
 	}
-	private void verifyEmailExists(String email){
-		if(!teacherRepository.existsByEmail(email)){
+
+	private void verifyEmailExists(String email) {
+		if (teacherRepository.existsByEmail(email)) {
 			throw new ApiException("Register not found", HttpStatus.NOT_FOUND);
 		}
 	}
-	private void verifyCpfExists(String cpf){
-		if(!teacherRepository.existsByCpf(cpf)){
+
+	private void verifyCpfExists(String cpf) {
+		if (teacherRepository.existsByCpf(cpf)) {
 			throw new ApiException("Register not found", HttpStatus.NOT_FOUND);
 		}
 	}
 
 	public void partialUpdate(ChangeStatusTeacher object, int id) {
-		//Verificar se o status teve alteracao/ email e cpf ja existem no banco?
+
 		save(buildNewTeacher(object, id));
 	}
 
@@ -94,12 +104,23 @@ public class TeacherService {
 		if (temporary.isEmpty()) {
 			throw new ApiException("Teacher not found", HttpStatus.NOT_FOUND);
 		}
+		if (temporary.get().getStatus() == object.status()) {
+			throw new ApiException("This Status already exists", HttpStatus.BAD_REQUEST);
+		}
+
 		var teacher = temporary.get();
 		teacher.setStatus(object.status());
 		return teacher;
 	}
 
+	public List<TeacherDto> findAllTeacherDto() {
+		var list = teacherRepository.findAll();
+		return convertToDto(list);
+	}
 
+	private List<TeacherDto> convertToDto(List<Teacher> teacherList) {
+		return ListHelper.converter(Teacher::toDto, teacherList);
+	}
 
 	public void delete(int id) {
 		teacherRepository.deleteById(id);

@@ -1,6 +1,7 @@
 package br.com.projeto.mentoria.controller;
 
 import br.com.projeto.mentoria.domain.DTO.ChangeStatusTeacher;
+import br.com.projeto.mentoria.domain.DTO.TeacherDto;
 import br.com.projeto.mentoria.domain.Teacher;
 import br.com.projeto.mentoria.services.TeacherService;
 import java.net.URI;
@@ -60,5 +61,11 @@ public class TeacherController {
 	public ResponseEntity<Void> delete(@PathVariable(name = "id") int id) {
 		teacherService.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/listDto")
+	public ResponseEntity<List<TeacherDto>> findAllTeacherDto() {
+		var teacherDto =  teacherService.findAllTeacherDto();
+		return ResponseEntity.ok(teacherDto);
 	}
 }

@@ -1,5 +1,6 @@
 package br.com.projeto.mentoria.domain;
 
+import br.com.projeto.mentoria.domain.DTO.TeacherDto;
 import br.com.projeto.mentoria.domain.validator.TeacherValidator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,5 +25,9 @@ public class Teacher extends Person {
 	@Override
 	public List<String> validated() {
 		return new TeacherValidator().validate(this);
+	}
+
+	public TeacherDto toDto(){
+		 return new TeacherDto(name, cpf);
 	}
 }
